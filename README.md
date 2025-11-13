@@ -6,7 +6,9 @@ This repository provides a pre-configured Docker environment for running Concret
 
 1. 
 ```bash
-docker-compose up --build -d
+cd concretecsm
+docker compose build --no-cache
+docker compose up
 ```
 
 This will start:
