@@ -67,6 +67,5 @@ This setup is for educational and testing purposes only — demonstrating a stor
 
 ## Using AWS and Automation
 
-The folder "Deployment" is the implementation of the achitecture below using terraform and ansible for this project.
+The folder "Deployment" is the implementation of the achitecture (file archi.png) using terraform and ansible for this project.
 
-![alt text](<Capture d’écran 2025-11-30 à 01.36.29.png>)
