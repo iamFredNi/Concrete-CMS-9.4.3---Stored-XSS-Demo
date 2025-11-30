@@ -65,6 +65,8 @@ Use the credentials you set during installation.
 This setup is for educational and testing purposes only — demonstrating a stored XSS vulnerability in Concrete CMS 9.4.3. Do not test it on real servers usedin production
 
 
-## Using AWS
+## Using AWS and Automation
 
-The folder Deployment is the implementation of the achitecture present in this directory using terraform and ansible for this project
+The folder "Deployment" is the implementation of the achitecture below using terraform and ansible for this project.
+
+![alt text](<Capture d’écran 2025-11-30 à 01.36.29.png>)
