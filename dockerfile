@@ -1,0 +1,29 @@
+# ---- PHP + Apache ----
+FROM php:8.2-apache
+
+# Installer les dépendances nécessaires
+RUN apt-get update && apt-get install -y \
+    git unzip patch libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libxml2-dev libicu-dev libonig-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql zip gd intl \
+    && curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
+
+
+# Copier le code source
+COPY . /var/www/html
+
+WORKDIR /var/www/html
+
+# Installer les dépendances PHP
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Corriger les permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
+    && chmod -R 775 /var/www/html/application/files
+
+EXPOSE 80
+CMD ["apache2-foreground"]
+
+

@@ -1,0 +1,69 @@
+---
+- name: Deploy ConcreteCMS on EC2
+  hosts: concretecms
+  become: yes
+  vars:
+    remote_path: /home/ubuntu/concretecms
+    concretecms_git: https://github.com/concretecms/concretecms.git
+    concretecms_version: 9.4.3
+    local_dockerfile_path: /Users/yannfreddydonguedongmo/Desktop/last semester/AS/Concrete-CMS-9.4.3---Stored-XSS-Demo/dockerfile
+    local_compose_path: /Users/yannfreddydonguedongmo/Desktop/last semester/AS/Concrete-CMS-9.4.3---Stored-XSS-Demo/docker-compose.yml
+  tasks:
+    - name: Install Docker
+      become: yes
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+    
+    - name: Download Docker Compose binary
+      become: yes
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Clone ConcreteCMS repository
+      git:
+        repo: "{{ concretecms_git }}"
+        dest: "{{ remote_path }}"
+        version: "{{ concretecms_version }}"
+        force: yes
+
+    - name: Checkout specific version 9.4.3
+      command: git checkout {{ concretecms_version }}
+      args:
+        chdir: "{{ remote_path }}"
+
+    - name: Copy custom dockerfile to remote
+      copy:
+        src: "{{ local_dockerfile_path }}"
+        dest: "{{ remote_path }}/dockerfile"
+        mode: '0644'
+
+    - name: Copy custom docker-compose.yml to remote
+      copy:
+        src: "{{ local_compose_path }}"
+        dest: "{{ remote_path }}/docker-compose.yml"
+        mode: '0644'
+
+    - name: Ensure ownership and permissions
+      file:
+        path: "{{ remote_path }}"
+        owner: ubuntu
+        group: ubuntu
+        recurse: yes
+
+    - name: Build and start Docker stack
+      command: docker-compose up -d --build
+      args:
+        chdir: "{{ remote_path }}"
+      become: yes
+

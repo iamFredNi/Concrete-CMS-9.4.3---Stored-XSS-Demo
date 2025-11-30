@@ -1,0 +1,13 @@
+# Ignore Terraform state files
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ignore .ssh directory
+.ssh/
+# Ignore Terraform state files
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ignore .ssh directory
+.ssh/
+
