@@ -5,8 +5,15 @@ This repository provides a pre-configured Docker environment for running Concret
 ## Quick Start
 
 1. 
+
 ```bash
-cd concretecsm
+git clone https://github.com/concretecms/concretecms.git
+cd concretecms/
+git checkout 9.4.3
+```
+2. Copy the dockerfile and docker-compose.yaml in the folder and run the following commands
+
+```bash
 docker compose build --no-cache
 docker compose up
 ```
@@ -20,7 +27,7 @@ This will start:
 
 Go to http://localhost:8080 , you should see the Concrete CMS installation screen.
 
-When prompted, use the following database credentials as specified in the docker-compose.yaml file:
+When prompted, use the following database credentials as specified in the docker-compose.yml file:
 
 - Database Server: db
 - Database Name: concretecms
@@ -50,9 +57,14 @@ Use the credentials you set during installation.
 - save changes
 - Reload the page and approve the new version of the page for all visitors
 
-3. Visit the site and any page portfolio as a normal user , you will get this:
+3. Visit the site and the category services or portfoglio as a normal user , you will get this:
 ![alt text](<Capture d’écran 2025-11-13 à 12.19.02.png>)
 
 
 ⚠️ Disclaimer
 This setup is for educational and testing purposes only — demonstrating a stored XSS vulnerability in Concrete CMS 9.4.3. Do not test it on real servers usedin production
+
+
+## Using AWS
+
+The folder Deployment is the implementation of the achitecture present in this directory using terraform and ansible for this project
