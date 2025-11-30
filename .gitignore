@@ -4,10 +4,13 @@ terraform.tfstate.backup
 
 # Ignore .ssh directory
 .ssh/
-# Ignore Terraform state files
-terraform.tfstate
-terraform.tfstate.backup
 
 # Ignore .ssh directory
 .ssh/
 
+# Ignore Terraform local directories and plugins
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+.terraform/*.zip
